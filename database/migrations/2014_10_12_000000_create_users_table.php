@@ -16,10 +16,10 @@ return new class () extends Migration {
             $table->string('pname');
             $table->string('email')->unique();
             $table->string('phone')->unique()->nullable();
-            $table->integer('age');
-            $table->tinyInteger("sex")->comment('0 female 1 male');
-            $table->text("description");
-            $table->string('profile');
+            $table->integer('age')->nullable();
+            $table->tinyInteger("sex")->nullable()->comment('0 female 1 male');
+            $table->text("description")->nullable();
+            $table->string('profile')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
