@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\TagController;
+use App\Http\Controllers\Api\ArticleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,13 +21,14 @@ use App\Http\Controllers\Api\TagController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-//categories route
+//categories routes
 Route::get('/categories', [CategoryController::class,"get"]);
 
-//tags route
+//tags routes
 Route::get('/tags', [TagController::class,"get"]);
 
-
+//article routes
+Route::get('/articles', [ArticleController::class,"get"]);
 
 //auth routes
 Route::post('/register', [AuthController::class,"register"]);
