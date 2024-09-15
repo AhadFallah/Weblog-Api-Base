@@ -20,7 +20,7 @@ class ArticleResource extends JsonResource
             'description' => $this->description,
             'text' => $this->text,
             'cover' => $this->cover,
-            'categories' => CategoryResource::collection([$this->category]),
+            'categories' => CategoryArticleResource::collection([$this->category]),
             'writer' => [
                 'name' => $user->pname,
                 'description' => $user->description,
