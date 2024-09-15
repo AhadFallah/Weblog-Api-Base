@@ -8,6 +8,7 @@ use App\Models\Article;
 use App\Models\Tag;
 use App\Http\Resources\ArticleResource;
 use App\Http\Requests\Articles\ArticleRequest;
+use App\Http\Services\ImageService;
 
 class ArticleController extends Controller
 {
@@ -32,7 +33,7 @@ class ArticleController extends Controller
     //
     //
     //@param article object and tag
-    public function store(ArticleRequest $request)
+    public function store(ArticleRequest $request, ImageService $imageService)
     {
         //get the data
         $data = $request->all();
@@ -40,13 +41,24 @@ class ArticleController extends Controller
         //validate data
         $request->validated();
 
-        //todo make image service for cover
+        //save the cover and return the path
+        $image = $imageService->setFile($data['cover'])->setPath('images'.DIRECTORY_SEPARATOR.'covers')->save();
+
+        //put the path in data
+        $data['cover'] = $image;
+
+        $article = Article::create($data);
 
         //foreach in tags user given and if do not exist make one
         foreach ($data['tags'] as $tag) {
             $existingTag = Tag::firstOrCreate(['name' => $tag]);
-            // $->tags()->attach($existingTag);
+            $article->tags()->attach($existingTag);
         }
+        //return a success message
+        return response()->json([
+            'success' => true
+        ]);
+
 
     }
 }

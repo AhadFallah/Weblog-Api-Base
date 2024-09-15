@@ -22,13 +22,13 @@ class ArticleRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "name" => "required|string|max:255",
-            "description" => "required|string",
-            "text" => "required|string",
-            "cover" => "required|image",
-            "category_id" => "required|exists:categories,id",
-            "tags" => "required|array",
-            "tags.*" => "required"
+            "name" => "nullable|string|max:255",
+            "description" => "nullable|string",
+            "text" => "nullable|string",
+            "cover" => "nullable|image",
+            "category_id" => "nullable|exists:categories,id",
+            "tags" => "nullable|array",
+            "tags.*" => "nullable"
         ];
     }
 }

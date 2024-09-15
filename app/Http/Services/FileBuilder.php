@@ -10,7 +10,7 @@ class FileBuilder
     protected $path;
     protected $format;
     protected $fileName;
-    protected $disk;
+    protected $disk = "public";
     protected $finalPath;
 
     public function setFile($file)
@@ -65,6 +65,7 @@ class FileBuilder
         $this->getName() ?? $this->setName(time());
         $this->getFormat() ?? $this->setFormat($this->file->extension());
         $this->setName($this->getName() .time(). '.' . $this->getFormat());
+        $this->setFinalPath($this->getPath());
         $this->checkPath($this->getPath());
         return $this;
 

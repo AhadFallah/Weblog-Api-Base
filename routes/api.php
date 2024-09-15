@@ -29,6 +29,7 @@ Route::get('/tags', [TagController::class,"get"]);
 
 //article routes
 Route::get('/articles', [ArticleController::class,"get"]);
+Route::post('new/article', [ArticleController::class,"store"])/* ->middleware('auth:sanctum') */;
 
 //auth routes
 Route::post('/register', [AuthController::class,"register"]);
