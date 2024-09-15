@@ -73,7 +73,8 @@ class ArticleController extends Controller
     //@param article object and tag
     public function update(ArticleUpdateRequest $request, Article $article)
     {
-        //todo policy for update
+        //todo need to be test
+        $this->authorize('crudArticle', $article);
 
         //get the data
         $data = $request->all();
@@ -116,7 +117,9 @@ class ArticleController extends Controller
     //@param article object
     public function destroy(Article $article)
     {
-        //todo policy for user own the article
+        //todo need to be tested
+        $this->authorize('crudArticle', $article);
+
         $article->delete();
 
         return response()->json([
