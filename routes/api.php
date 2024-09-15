@@ -28,8 +28,7 @@ Route::get('/categories', [CategoryController::class,"get"]);
 Route::get('/tags', [TagController::class,"get"]);
 
 //article routes
-Route::get('/articles', [ArticleController::class,"get"]);
-Route::post('new/article', [ArticleController::class,"store"])/* ->middleware('auth:sanctum') */;
+Route::resource("/articles", ArticleController::class);
 
 //auth routes
 Route::post('/register', [AuthController::class,"register"]);
