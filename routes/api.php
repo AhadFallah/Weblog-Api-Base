@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\TagController;
 use App\Http\Controllers\Api\ArticleController;
+use App\Http\Controllers\Api\FavouriteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,6 +30,11 @@ Route::get('/tags', [TagController::class,"get"]);
 
 //article routes
 Route::resource("/articles", ArticleController::class);
+
+//favourite routes
+Route::resource("/fav", FavouriteController::class)->only(['index','store','destroy'])->middleware("auth:sanctum");
+
+
 
 //auth routes
 Route::post('/register', [AuthController::class,"register"]);

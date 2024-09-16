@@ -54,4 +54,12 @@ class User extends Authenticatable
     {
         return $this->hasMany(Otp::class);
     }
+    public function favs()
+    {
+        return $this->belongsToMany(Article::class);
+    }
+
+
+
+
 }
