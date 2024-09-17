@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\TagController;
 use App\Http\Controllers\Api\ArticleController;
 use App\Http\Controllers\Api\FavouriteController;
+use App\Http\Controllers\Api\CommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,6 +35,8 @@ Route::resource("/articles", ArticleController::class);
 //favourite routes
 Route::resource("/fav", FavouriteController::class)->only(['index','store','destroy'])->middleware("auth:sanctum");
 
+//comment routes
+Route::resource('/comment', CommentController::class)->only(['store','update','destroy'])->middleware('auth:sanctum');
 
 
 //auth routes

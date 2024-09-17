@@ -27,6 +27,7 @@ class ArticleResource extends JsonResource
                 'profile' => $user->profile,
             ],
             'tags' => $this->tags,
+            'comments' => CommentResource::collection($this->comments)
         ];
     }
 }

@@ -28,6 +28,10 @@ class Article extends Model
     {
         return $this->belongsToMany(Tag::class);
     }
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
 
     //get article that user most visit categories by cookies
     public static function get_article(string $categories = null)
