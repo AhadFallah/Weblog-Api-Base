@@ -111,7 +111,7 @@ class AuthController extends Controller
         $otp = Otp::create([
             "user_id" => $user->id
         ]);
-        //send code for email
+        //send code for phone
         if($otp->sendCode()) {
             return response()->json([
             "code_id" => $otp->id,
@@ -192,4 +192,55 @@ class AuthController extends Controller
             "message" => "logged out"
         ]);
     }
+
+    ///##############################################################################################
+    //verify the code
+    public function verifyUpdate(LoginRequest $request)
+    {
+        //get data
+        $data = $request->all();
+
+        //validate data
+        $request->validated();
+
+
+        //get the opt object
+        $otp = Otp::where('user_id', $data["user_id"])->find($data["code_id"]);
+
+        //handle errors
+        if(!$otp) {
+            return response()->json([
+                'message' => "something is not right"
+            ]);
+        }
+        if(!$otp->isValid()) {
+            return response()->json([
+                            'message' => "The code is either expired or used."
+                        ]);
+        }
+        if($otp->code !== $data['code']) {
+            return response()->json([
+                'message' => "code is wrong"
+            ]);
+
+        }
+        //make the otp token used
+        $otp->update([
+        'used' => true
+    ]);
+        //find user
+        $user = auth()->user();
+
+        $user->update($data['user_data']);
+
+        //return token
+        return response()->json([
+            'success' => true
+        ]);
+
+
+    }
+
+
+
 }

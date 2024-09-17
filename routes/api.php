@@ -8,6 +8,7 @@ use App\Http\Controllers\Api\TagController;
 use App\Http\Controllers\Api\ArticleController;
 use App\Http\Controllers\Api\FavouriteController;
 use App\Http\Controllers\Api\CommentController;
+use App\Http\Controllers\Api\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,6 +38,12 @@ Route::resource("/fav", FavouriteController::class)->only(['index','store','dest
 
 //comment routes
 Route::resource('/comment', CommentController::class)->only(['store','update','destroy'])->middleware('auth:sanctum');
+
+//profile edit routes
+Route::post('/profilePic', [ProfileController::class,'profile'])->middleware('auth:sanctum');
+Route::post('/profileDel', [ProfileController::class,'deleteProfile'])->middleware('auth:sanctum');
+Route::post('/profileEdit', [ProfileController::class,'editProfile'])->middleware('auth:sanctum');
+Route::post('/verifyUpdate', [AuthController::class,'verifyUpdate'])->middleware("auth:sanctum");
 
 
 //auth routes
