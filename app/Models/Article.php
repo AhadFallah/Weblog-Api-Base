@@ -47,6 +47,26 @@ class Article extends Model
         // Execute the query and return the results
         return $query->get();
     }
+    public function scopeFilter($query, $filter)
+    {
+        if ($filter['search']) {
+            $query->where('name', 'like', '%'. $filter['search'].'%');
+        }
+        if($categoryId = $filter['category_id'] ?? null !== null && $filter['category_id'] !== "all") {
+            $query->whereHas('category', function ($qu) use ($categoryId) {
+                $qu->where('id', $categoryId);
+            });
+        }
+        if($tagId = $filter['tag_id'] ?? null !== null && $filter['tag_id'] !== 'all') {
+            $query->whereHas('tags', function ($qu) use ($tagId) {
+                $qu->whereIn('tag_id', $tagId);
+            });
+        }
+        if (!empty($filter['popular']) && $filter['popular'] == true) {
+            $query->orderBy('likes', 'desc');
+        }
+
+    }
 
     //
     // public function toObject()

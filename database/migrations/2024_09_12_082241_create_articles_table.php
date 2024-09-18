@@ -18,6 +18,7 @@ return new class () extends Migration {
             $table->string('cover');
             $table->integer('category_id')->unsigned();
             $table->integer('user_id')->unsigned();
+            $table->bigInteger('likes')->default(0);
             $table->timestamps();
         });
     }

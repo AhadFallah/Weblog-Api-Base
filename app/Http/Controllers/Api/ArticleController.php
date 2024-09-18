@@ -28,6 +28,14 @@ class ArticleController extends Controller
         //get article by the category most clicked by user that retrieve by cookies
         $articles = Article::get_article(isset($cookies['category']) ? $cookies['category'] : null);
 
+        //filter and search
+        $articles = $articles->filter(request([
+            'search',
+            'category_id',
+            'tag_id',
+            'popular'
+]));
+
         //make the valid data for response
         $articles = ArticleResource::collection($articles);
 
