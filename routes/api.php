@@ -39,6 +39,8 @@ Route::resource("/fav", FavouriteController::class)->only(['index','store','dest
 //comment routes
 Route::resource('/comment', CommentController::class)->only(['store','update','destroy'])->middleware('auth:sanctum');
 
+
+
 //profile edit routes
 Route::post('/profilePic', [ProfileController::class,'profile'])->middleware('auth:sanctum');
 Route::post('/profileDel', [ProfileController::class,'deleteProfile'])->middleware('auth:sanctum');

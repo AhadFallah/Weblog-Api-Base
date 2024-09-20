@@ -45,11 +45,12 @@ class Article extends Model
         }
 
         // Execute the query and return the results
-        return $query->get();
+        return $query;
     }
     public function scopeFilter($query, $filter)
     {
-        if ($filter['search']) {
+
+        if (!empty($filter['search'])) {
             $query->where('name', 'like', '%'. $filter['search'].'%');
         }
         if($categoryId = $filter['category_id'] ?? null !== null && $filter['category_id'] !== "all") {
@@ -65,6 +66,7 @@ class Article extends Model
         if (!empty($filter['popular']) && $filter['popular'] == true) {
             $query->orderBy('likes', 'desc');
         }
+        return $query;
 
     }
 

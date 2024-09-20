@@ -23,11 +23,16 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
+        $faker = \Faker\Factory::create('fa_IR');
         return [
-            'name' => fake()->name(),
+            'name' => $faker->name(),
+            'pname' => $faker->name(),
+            'phone' => fake()->phoneNumber,
+            'age' => 20,
+            'sex' => 1,
+            'description' => $faker->sentence(),
+            'profile' => "https://picsum.photos/400",
             'email' => fake()->unique()->safeEmail(),
-            'email_verified_at' => now(),
-            'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
         ];
     }

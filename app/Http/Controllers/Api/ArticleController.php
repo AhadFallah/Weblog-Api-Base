@@ -35,12 +35,17 @@ class ArticleController extends Controller
             'tag_id',
             'popular'
 ]));
+        $popularArticle = clone $articles;
+        $popularArticle =  $popularArticle->orderBy("likes", 'DESC')->paginate(4);
 
+        $newestArticle = $articles->paginate(6);
         //make the valid data for response
-        $articles = ArticleResource::collection($articles);
+        $articles = ArticleResource::collection($newestArticle);
+        $popularArticle = ArticleResource::collection($popularArticle);
 
         return response()->json([
-            'articles' => $articles
+            'newest' => $newestArticle,
+            'popular' => $popularArticle
         ]);
     }
     //########################################################################################################

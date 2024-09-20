@@ -4,6 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Morilog\Jalali\Jalalian;
 
 class ArticleResource extends JsonResource
 {
@@ -26,8 +27,9 @@ class ArticleResource extends JsonResource
                 'description' => $user->description,
                 'profile' => $user->profile,
             ],
-            'tags' => $this->tags,
-            'comments' => CommentResource::collection($this->comments)
+            'tags' => $this->tags()->limit(5)->get(),
+            'comments' => CommentResource::collection($this->comments),
+            'create' => Jalalian::fromDateTime($this->updated_at)->format('Y/m/d')
         ];
     }
 }
